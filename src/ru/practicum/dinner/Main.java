@@ -45,6 +45,7 @@ public class Main {
     }
 
     private static void generateDishCombo() {
+
         System.out.println("Начинаем конструировать обед...");
 
         System.out.println("Введите количество наборов, которые нужно сгенерировать:");
