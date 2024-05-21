@@ -1,4 +1,4 @@
-package ru.practicum.dinner;
+/*package ru.practicum.dinner;
 
 import java.util.Scanner;
 
@@ -63,4 +63,4 @@ public class Main {
         // сгенерируйте комбинации блюд и выведите на экран
 
     }
-}
+}*/

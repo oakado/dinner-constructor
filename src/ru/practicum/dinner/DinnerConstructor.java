@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class DinnerConstructor {
-    HashMap<String, ArrayList<String>> dishesByTypes;
-    ArrayList<String> dishTypesForDishCombo;
-    ArrayList<ArrayList<String>> dishCombos;
+    HashMap<String, ArrayList<String>> dishesByTypes; //хранение блюд по типам
+    ArrayList<String> dishTypesForDishCombo;//список типов для генерирования комбинаций
+    ArrayList<ArrayList<String>> dishCombos;//список комбинаций блюд
     Random random;
 
 
@@ -19,12 +19,12 @@ public class DinnerConstructor {
     }
 
     //Добавить блюдо
-    // Проверку на дублирвоание имени вставить в main
+    // Проверку на дублирование имени вставить в main
     void addDish(String type, String name){
         if(checkType(type)){
             dishesByTypes.get(type).add(name);
             if(checkName(type, name)){
-
+                return;//Перестраховка от дублирования имен. Check на дубли должен быть в main
             }
         }else {
             dishesByTypes.put(type, new ArrayList<String>());
@@ -32,19 +32,23 @@ public class DinnerConstructor {
         }
     }
 
-    //получение готовой мапы (УДАЛИТЬ ПОСЛЕ ТЕСТИРОВАНИЯ)
+    //получение готовой HashMap (УДАЛИТЬ ПОСЛЕ ТЕСТИРОВАНИЯ)
     void addDishes(HashMap<String, ArrayList<String>> dishesByTypes){
         this.dishesByTypes = dishesByTypes;
     }
 
     void addDishTypeForDishCombo(String name){
+        if(dishTypesForDishCombo.contains(name)){
+            return;//Перестраховка от дублирования имен. Check на дубли должен быть в main
+        }
         dishTypesForDishCombo.add(name);
     }
 
+
     void generateDishCombo(int numberOfCombo){
-        ArrayList<String> dishes;
+        ArrayList<String> dishes;//Для ссылки на лист в dishesByTypes
         ArrayList<String> currentCombo = new ArrayList<>();
-        int comboCounter = 0;
+        int comboCounter = 0;//засчитывает уникальные dishCombo
         int randomIndex;
         while(comboCounter < numberOfCombo){
             for(String dishType: dishTypesForDishCombo){
@@ -54,17 +58,19 @@ public class DinnerConstructor {
             }
             if(!dishCombos.isEmpty()){
                 if(checkCombo(currentCombo)){
-                    continue;
+                    continue;//Набор не уникален (не допускается)
                 }else {
-                    dishCombos.add(currentCombo);
+                    dishCombos.add(currentCombo);//Уникальный набор блюд
+                    comboCounter++;
                 }
             }else {
-                dishCombos.add(currentCombo);
+                dishCombos.add(currentCombo);//Первый набор блюд
+                comboCounter++;
             }
-            comboCounter++;
         }
     }
 
+    //Проверка на НЕуникальность сгенерированной комбинации блюд
     boolean checkCombo(ArrayList<String> currentCombo){
         for (ArrayList<String> dishCombo : dishCombos) {
             if(dishCombo.equals(currentCombo)){
