@@ -19,11 +19,8 @@ public class DinnerConstructor {
     public void addDish(String type, String name){
         if(checkType(type)){
             dishesByTypes.get(type).add(name);
-            if(checkName(type, name)){
-                return;//Перестраховка от дублирования имен. Check на дубли должен быть в main
-            }
         }else {
-            dishesByTypes.put(type, new ArrayList<String>());
+            dishesByTypes.put(type, new ArrayList<>());
             dishesByTypes.get(type).add(name);
         }
     }

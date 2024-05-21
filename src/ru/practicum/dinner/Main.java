@@ -1,6 +1,5 @@
 package ru.practicum.dinner;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
