@@ -58,12 +58,20 @@ public class DinnerConstructor {
         int testCounter = 0;
         while(comboCounter < numberOfCombo){
             for(String dishType: dishTypesForDishCombo){
+                System.out.println("#1dishTypesForDishCombo = " + dishTypesForDishCombo);
+                System.out.println("#2dishType = " + dishType);
                 dishes = dishesByTypes.get(dishType);
+                System.out.println("#3dishes = " + dishes);
                 randomIndex = random.nextInt(dishes.size());
-                currentCombo.add(dishes.get(randomIndex));
+                String randomDish = dishes.get(randomIndex);
+                System.out.println("#4randomDish = " + randomDish);
+                currentCombo.add(randomDish);
             }
+            System.out.println("#5Before if");
             if(!dishCombos.isEmpty()){
+                System.out.println("#6Into if (!dishCombos.isEmpty())");
                 if(checkCombo(currentCombo)){
+                    System.out.println("#7Into  if checkCombo(currentCombo)");
                     currentCombo.clear();
                     continue;//Набор не уникален (не допускается)
                 }else {
@@ -72,6 +80,7 @@ public class DinnerConstructor {
                     comboCounter++;
                 }
             }else {
+                System.out.println("#6 dishCombos is empty");
                 dishCombos.add(currentCombo);//Первый набор блюд
                 currentCombo.clear();
                 comboCounter++;
