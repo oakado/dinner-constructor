@@ -1,5 +1,6 @@
 package ru.practicum.dinner;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -33,7 +34,7 @@ public class DinnerConstructor {
     }
 
     //получение готовой HashMap (УДАЛИТЬ ПОСЛЕ ТЕСТИРОВАНИЯ)
-    void addDishes(HashMap<String, ArrayList<String>> dishesByTypes){
+    void addDishesBulk(HashMap<String, ArrayList<String>> dishesByTypes){
         this.dishesByTypes = dishesByTypes;
     }
 
@@ -43,6 +44,10 @@ public class DinnerConstructor {
         }
         dishTypesForDishCombo.add(name);
     }
+    //получение готового ArrayList (УДАЛИТЬ ПОСЛЕ ТЕСТИРОВАНИЯ)
+    void addTypesForComboBulk(ArrayList<String> typesForCombo){
+        dishTypesForDishCombo = typesForCombo;
+    }
 
 
     void generateDishCombo(int numberOfCombo){
@@ -50,6 +55,7 @@ public class DinnerConstructor {
         ArrayList<String> currentCombo = new ArrayList<>();
         int comboCounter = 0;//засчитывает уникальные dishCombo
         int randomIndex;
+        int testCounter = 0;
         while(comboCounter < numberOfCombo){
             for(String dishType: dishTypesForDishCombo){
                 dishes = dishesByTypes.get(dishType);
@@ -58,21 +64,29 @@ public class DinnerConstructor {
             }
             if(!dishCombos.isEmpty()){
                 if(checkCombo(currentCombo)){
+                    currentCombo.clear();
                     continue;//Набор не уникален (не допускается)
                 }else {
-                    dishCombos.add(currentCombo);//Уникальный набор блюд
+                    dishCombos.add(currentCombo);
+                    currentCombo.clear();//Уникальный набор блюд
                     comboCounter++;
                 }
             }else {
                 dishCombos.add(currentCombo);//Первый набор блюд
+                currentCombo.clear();
                 comboCounter++;
             }
+            testCounter++;
+            System.out.println("testCounter = " + testCounter);
+            if(testCounter>2) break;
         }
     }
 
     //Проверка на НЕуникальность сгенерированной комбинации блюд
     boolean checkCombo(ArrayList<String> currentCombo){
         for (ArrayList<String> dishCombo : dishCombos) {
+            System.out.println("dishCombo = " + dishCombo);
+            System.out.println("currentCombo = " + currentCombo);
             if(dishCombo.equals(currentCombo)){
                 return true;
             }
