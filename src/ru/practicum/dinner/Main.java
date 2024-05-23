@@ -24,6 +24,11 @@ public class Main {
                     break;
                 case "3":
                     return;
+                default:
+                    System.out.printf("Неизвестная команда. Доступные команды меню в " +
+                                    "диапазоне от 1 до 3, а Вы введи %s.%n"
+                    , command);
+
             }
         }
     }

@@ -3,9 +3,9 @@ package ru.practicum.dinner;
 import java.util.*;
 
 public class DinnerConstructor {
-    private HashMap<String, ArrayList<String>> dishesByTypes; //хранение блюд по типам
-    private ArrayList<String> dishTypesForDishCombo;//список типов для генерирования комбинаций
-    private ArrayList<ArrayList<String>> dishCombos;//список комбинаций блюд
+    private Map<String, ArrayList<String>> dishesByTypes; //хранение блюд по типам
+    private List<String> dishTypesForDishCombo;//список типов для генерирования комбинаций
+    private List<ArrayList<String>> dishCombos;//список комбинаций блюд
     private Random random;
 
 
@@ -30,12 +30,15 @@ public class DinnerConstructor {
         dishTypesForDishCombo.add(name);
     }
 
-    //Генератор создаёт уникальные комбинации блюд, путем создания случайной комбинации
-    //и проверки её методом checkCombo() на предмет наличия.
-    //Метод добавляет сгенерированные наборы в поле-List dishCombos
+
+    /**
+     * <b>Создаёт уникальные комбинации блюд</b>, путем создания случайной комбинации
+     * и проверки её методом checkCombo() на предмет наличия.
+     * Метод добавляет сгенерированные наборы в поле dishCombos
+     */
     private void generateDishCombo(int numberOfCombo){
         dishCombos.clear();
-        ArrayList<String> dishes;//Для ссылки на лист в dishesByTypes
+        List<String> dishes;//Для ссылки на лист в dishesByTypes
         ArrayList<String> currentCombo = new ArrayList<>();
         int comboCounter = 0;//для подсчета числа уникальных наборов
         int randomIndex;
@@ -64,8 +67,8 @@ public class DinnerConstructor {
     }
 
     //Проверка на наличие сгенерированной комбинации блюд в наборе
-    private boolean checkCombo(ArrayList<String> currentCombo){
-        for (ArrayList<String> dishCombo : dishCombos) {
+    private boolean checkCombo(List<String> currentCombo){
+        for (List<String> dishCombo : dishCombos) {
             if(dishCombo.equals(currentCombo)){
                 return true;
             }
@@ -77,7 +80,7 @@ public class DinnerConstructor {
         String dishComboAsString = "";
         for (int i = 0; i < dishCombos.size(); i++) {
             dishComboAsString += String.format("%nКомбо %s%n[",i+1);
-            ArrayList<String> dishCombo = dishCombos.get(i);
+            List<String> dishCombo = dishCombos.get(i);
             for (int j = 0; j < dishCombo.size(); j++) {
                 if(j == dishCombo.size()-1){
                     dishComboAsString += String.format("%s]%n",dishCombo.get(j));
